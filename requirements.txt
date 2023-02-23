@@ -18,8 +18,11 @@ tensorboard-logger==0.1.0
 tensorboardX==2.5.1
 timm==0.8.6.dev0
 tokenizers==0.13.1
-torch==1.13.1
+torch==1.13.0
 torchvision==0.14.0
 transformers==4.24.0
 vissl==0.1.6
 wilds==2.0.0
+netcal==1.1.2
+matplotlib>=2.2.2
+psycopg2-binary

@@ -468,6 +468,7 @@ class MIMICNotes(SubpopDataset):
     INPUT_SHAPE = (10000,)
 
     def __init__(self, data_path, split, hparams, train_attr='yes', subsample_type=None, duplicates=None):
+        assert hparams['text_arch'] == 'bert-base-uncased'
         metadata = os.path.join(data_path, "mimic_notes", 'subpop_bench_meta', "metadata.csv")
         self.x_array = np.load(os.path.join(data_path, "mimic_notes", 'features.npy'))
         self.data_type = "tabular"

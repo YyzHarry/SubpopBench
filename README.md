@@ -44,7 +44,7 @@ The [currently available datasets](./subpopbench/dataset/datasets.py) are:
 * CelebA ([Liu et al., 2015](https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html))
 * MetaShift ([Liang and Zou, 2022](https://arxiv.org/abs/2202.06523))
 * CivilComments ([Borkan et al., 2019](https://arxiv.org/abs/1903.04561)) from the [WILDS benchmark](https://arxiv.org/abs/2012.07421)
-* MultiNLI ([Williams et al., 2017](https://arxiv.org/abs/1704.05426)
+* MultiNLI ([Williams et al., 2017](https://arxiv.org/abs/1704.05426))
 * MIMIC-CXR ([Johnson et al., 2019](https://www.nature.com/articles/s41597-019-0322-0))
 * CheXpert ([Irvin et al., 2019](https://arxiv.org/abs/1901.07031))
 * CXRMultisite ([Puli et al., 2021](https://openreview.net/forum?id=12RoR2o32T))
@@ -57,7 +57,28 @@ Send us a PR to add your dataset!
 
 ### Model Architectures & Pretraining Methods
 
-[**TODO: Haoran**]
+The supported image architectures are: 
+
+* ResNet-50 on ImageNet-1K using supervised pretraining (`resnet_sup_in1k`)
+* ResNet-50 on ImageNet-21K using supervised pretraining (`resnet_sup_in21k`, [Ridnik et al., 2021](https://arxiv.org/pdf/2104.10972v4.pdf))
+* ResNet-50 on ImageNet-1K using SimCLR (`resnet_simclr_in1k`, [Chen et al., 2020](https://arxiv.org/abs/2002.05709))
+* ResNet-50 on ImageNet-1K using Barlow Twins (`resnet_barlow_in1k`, [Zbontar et al., 2021](https://arxiv.org/abs/2103.03230))
+* ResNet-50 on ImageNet-1K using DINO (`resnet_dino_in1k`, [Caron et al., 2021](https://arxiv.org/abs/2104.14294))
+* ViT-B on ImageNet-1K using supervised pretraining (`vit_sup_in1k`, [Steiner et al., 2021](https://arxiv.org/abs/2106.10270))
+* ViT-B on ImageNet-21K using supervised pretraining (`vit_sup_in21k`, [Steiner et al., 2021](https://arxiv.org/abs/2106.10270))
+* ViT-B from OpenAI CLIP (`vit_clip_oai`, [Radford et al., 2021](https://arxiv.org/abs/2103.00020))
+* ViT-B pretrained using CLIP on LAION-2B (`vit_clip_laion`, [OpenCLIP](https://github.com/mlfoundations/open_clip))
+* ViT-B on SWAG using weakly supervised pretraining (`vit_sup_swag`, [Singh et al., 2022](https://arxiv.org/abs/2201.08371))
+* ViT-B on ImageNet-1K using DINO (`vit_dino_in1k`, [Caron et al., 2021](https://arxiv.org/abs/2104.14294))
+
+The supported text architectures are:
+* BERT-base-uncased (`bert-base-uncased`, [Devlin et al., 2018](https://arxiv.org/abs/1810.04805))
+* GPT-2 (`gpt2`, [Radford et al., 2019](https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf))
+* RoBERTa-base-uncased (`xlm-roberta-base`, [Liu et al., 2019](https://arxiv.org/abs/1907.11692))
+* SciBERT (`allenai/scibert_scivocab_uncased`, [Beltagy et al., 2019](https://arxiv.org/abs/1903.10676))
+* DistilBERT-uncased (`distilbert-base-uncased`, [Sanh et al., 2019](https://arxiv.org/abs/1910.01108))
+
+Note that text architectures are only compatible with `CivilComments`.
 
 ### Subpopulation Shift Scenarios
 
@@ -97,21 +118,23 @@ There are many [currently available model selection criteria](./subpopbench/data
 ### Installation
 
 #### Prerequisites
+
+Run the following commands to clone this repo and create the Conda environment:
+
+```bash
+git clone git@github.com:YyzHarry/SubpopBench.git
+cd SubpopBench/
+conda env create -f environment.yml
+conda activate subpop_bench
+```
+
+#### Downloading Data
 Download the original datasets and generate corresponding metadata in your `data_path`
 ```bash
 python -m subpopbench.scripts.download --data_path <data_path> --download
 ```
 
-[**TODO: Haoran**] Note that for ..., you will need to download manually... please refer to XXX for details 
-
-#### Dependencies
-
-You can install the dependencies for SubpopBench using
-
-[**TODO: Haoran** - change to env.yml and delete .txt file] 
-```bash
-pip install -r requirements.txt
-```
+For `MIMICNoFinding`, `CheXpertNoFinding`, `CXRMultisite`, and `MIMICNotes`, see [MedicalData.md](./MedicalData.md) for instructions for downloading the datasets manually.
 
 
 ### Code Overview
@@ -133,6 +156,7 @@ pip install -r requirements.txt
     - `--hparams_seed`: seed for different hyper-parameters
     - `--seed`: seed for different runs
     - `--stage1_folder` & `--stage1_algo`: arguments for two-stage algorithms
+    - `--image_arch` & `--text_arch`: model architecture and source of initial model weights. Note that text architectures are only compatible with `CivilComments`.
 - __sweep.py__:
     - `--n_hparams`: how many hparams to run for each <dataset, algorithm> pair
     - `--best_hp` & `--n_trials`: after sweeping hparams, fix best hparam and run trials with different seeds
@@ -196,7 +220,7 @@ python -m subpopbench.scripts.collect_results --input_dir <...>
 
 
 ## Acknowledgements
-This code is partly based on the open-source implementations from [DomainBed](https://github.com/facebookresearch/DomainBed) and [multi-domain-imbalance](https://github.com/YyzHarry/multi-domain-imbalance).
+This code is partly based on the open-source implementations from [DomainBed](https://github.com/facebookresearch/DomainBed) and [multi-domain-imbalance](https://github.com/YyzHarry/multi-domain-imbalance). Some of the code for loading self-supervised initial weights for image architectures were taken from [spurious_feature_learning](https://github.com/izmailovpavel/spurious_feature_learning).
 
 
 ## Citation
@@ -213,3 +237,4 @@ If you find this code or idea useful, please cite our work:
 
 ## Contact
 If you have any questions, feel free to contact us through email (yuzhe@mit.edu & haoranz@mit.edu) or Github issues. Enjoy!
+
