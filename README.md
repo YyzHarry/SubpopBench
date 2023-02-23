@@ -63,14 +63,14 @@ Send us a PR to add your dataset!
 
 We characterize four basic types of subpopulation shift using our framework, and categorize each dataset into its most dominant shift type.
 
-* **Spurious Correlations (SC)** happen when certain $a$ is spuriously correlated with $y$ in training but not in testing.
-* **Attribute Imbalance (AI)** happens when certain attributes are sampled with a much smaller probability than others in $p_{\text{train}}$, but not in $p_{\text{test}}$.
-* **Class Imbalance (CI)** happens when certain classes are biased in $p_{\text{train}}$, leading to higher prediction confidence for majority classes.
-* **Attribute Generalization (AG)** happens when certain attributes can be totally missing in $p_{\text{train}}$, but present in $p_{\text{test}}$.
+* **Spurious Correlations (SC)**: certain $a$ is spuriously correlated with $y$ in training but not in testing.
+* **Attribute Imbalance (AI)**: certain attributes are sampled with a much smaller probability than others in $p_{\text{train}}$, but not in $p_{\text{test}}$.
+* **Class Imbalance (CI)**: certain (minority) classes are underrepresented in $p_{\text{train}}$, but not in $p_{\text{test}}$.
+* **Attribute Generalization (AG)**: certain attributes can be totally missing in $p_{\text{train}}$, but present in $p_{\text{test}}$.
 
 ### Evaluation Metrics
 
-We include a variety of metrics aiming for a thorough evaluation from different aspects:
+We include [a variety of metrics](./subpopbench/utils/eval_helper.py) aiming for a thorough evaluation from different aspects:
 
 * Average Accuracy & Worst Accuracy
 * Average Precision & Worst Precision
@@ -82,10 +82,10 @@ We include a variety of metrics aiming for a thorough evaluation from different 
 
 ### Model Selection Criteria
 
-We systematically investigate whether attribute is known in both (1) _training set_ and (2) _validation set_,
+We highlight the impact of whether attribute is known in both (1) _training set_ and (2) _validation set_,
 where the former case is specified by argument `--train_attr` in [`train.py`](./subpopbench/train.py),
-while the latter case is specified by [model selection criteria](./subpopbench/learning/model_selection.py).
-There are many [currently available model selection criteria](./subpopbench/dataset/datasets.py) using different metrics defined above; we highlight a few important ones:
+and the latter case is specified by [model selection criteria](./subpopbench/learning/model_selection.py).
+We highlight a few important selection criteria:
 
 * `OracleWorstAcc`: Picks the best test-set worst-group accuracy (oracle)
 * `ValWorstAccAttributeYes`: Picks the best validation-set worst-group accuracy (attributes _known_ in validation set)
