@@ -53,11 +53,11 @@ The [currently available datasets](./subpopbench/dataset/datasets.py) are:
 * ImageNetBG ([Xiao et al., 2020](https://openreview.net/forum?id=gl3D-xY7wLq))
 * Living17 ([Santurkar et al., 2020](https://openreview.net/pdf?id=mQPBmvyAuk)) from the [BREEDS benchmark](https://openreview.net/pdf?id=mQPBmvyAuk)
 
-Send us a PR to add your dataset!
+Send us a PR to add your dataset! You can follow the dataset format [described here](./subpopbench/dataset/datasets.py).
 
 ### Model Architectures & Pretraining Methods
 
-The supported image architectures are: 
+The [supported image architectures](./subpopbench/models/networks.py) are:
 
 * ResNet-50 on ImageNet-1K using supervised pretraining (`resnet_sup_in1k`)
 * ResNet-50 on ImageNet-21K using supervised pretraining (`resnet_sup_in21k`, [Ridnik et al., 2021](https://arxiv.org/pdf/2104.10972v4.pdf))
@@ -71,7 +71,8 @@ The supported image architectures are:
 * ViT-B on SWAG using weakly supervised pretraining (`vit_sup_swag`, [Singh et al., 2022](https://arxiv.org/abs/2201.08371))
 * ViT-B on ImageNet-1K using DINO (`vit_dino_in1k`, [Caron et al., 2021](https://arxiv.org/abs/2104.14294))
 
-The supported text architectures are:
+The [supported text architectures](./subpopbench/models/networks.py) are:
+
 * BERT-base-uncased (`bert-base-uncased`, [Devlin et al., 2018](https://arxiv.org/abs/1810.04805))
 * GPT-2 (`gpt2`, [Radford et al., 2019](https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf))
 * RoBERTa-base-uncased (`xlm-roberta-base`, [Liu et al., 2019](https://arxiv.org/abs/1907.11692))
@@ -103,10 +104,10 @@ We include [a variety of metrics](./subpopbench/utils/eval_helper.py) aiming for
 
 ### Model Selection Criteria
 
-We highlight the impact of whether attribute is known in both (1) _training set_ and (2) _validation set_,
-where the former case is specified by argument `--train_attr` in [`train.py`](./subpopbench/train.py),
-and the latter case is specified by [model selection criteria](./subpopbench/learning/model_selection.py).
-We highlight a few important selection criteria:
+We highlight the impact of whether attribute is known in (1) _training set_ and (2) _validation set_,
+where the former is specified by `--train_attr` in [`train.py`](./subpopbench/train.py),
+and the latter is specified by [model selection criteria](./subpopbench/learning/model_selection.py).
+We show a few important selection criteria:
 
 * `OracleWorstAcc`: Picks the best test-set worst-group accuracy (oracle)
 * `ValWorstAccAttributeYes`: Picks the best validation-set worst-group accuracy (attributes _known_ in validation set)
@@ -118,7 +119,6 @@ We highlight a few important selection criteria:
 ### Installation
 
 #### Prerequisites
-
 Run the following commands to clone this repo and create the Conda environment:
 
 ```bash
@@ -129,7 +129,8 @@ conda activate subpop_bench
 ```
 
 #### Downloading Data
-Download the original datasets and generate corresponding metadata in your `data_path`
+Download the original datasets and generate corresponding metadata in your `data_path`:
+
 ```bash
 python -m subpopbench.scripts.download --data_path <data_path> --download
 ```
@@ -156,7 +157,7 @@ For `MIMICNoFinding`, `CheXpertNoFinding`, `CXRMultisite`, and `MIMICNotes`, see
     - `--hparams_seed`: seed for different hyper-parameters
     - `--seed`: seed for different runs
     - `--stage1_folder` & `--stage1_algo`: arguments for two-stage algorithms
-    - `--image_arch` & `--text_arch`: model architecture and source of initial model weights. Note that text architectures are only compatible with `CivilComments`.
+    - `--image_arch` & `--text_arch`: model architecture and source of initial model weights (text architectures only compatible with `CivilComments`)
 - __sweep.py__:
     - `--n_hparams`: how many hparams to run for each <dataset, algorithm> pair
     - `--best_hp` & `--n_trials`: after sweeping hparams, fix best hparam and run trials with different seeds
@@ -220,7 +221,7 @@ python -m subpopbench.scripts.collect_results --input_dir <...>
 
 
 ## Acknowledgements
-This code is partly based on the open-source implementations from [DomainBed](https://github.com/facebookresearch/DomainBed) and [multi-domain-imbalance](https://github.com/YyzHarry/multi-domain-imbalance). Some of the code for loading self-supervised initial weights for image architectures were taken from [spurious_feature_learning](https://github.com/izmailovpavel/spurious_feature_learning).
+This code is partly based on the open-source implementations from [DomainBed](https://github.com/facebookresearch/DomainBed), [spurious_feature_learning](https://github.com/izmailovpavel/spurious_feature_learning), and [multi-domain-imbalance](https://github.com/YyzHarry/multi-domain-imbalance).
 
 
 ## Citation
@@ -236,5 +237,4 @@ If you find this code or idea useful, please cite our work:
 
 
 ## Contact
-If you have any questions, feel free to contact us through email (yuzhe@mit.edu & haoranz@mit.edu) or Github issues. Enjoy!
-
+If you have any questions, feel free to contact us through email (yuzhe@mit.edu & haoranz@mit.edu) or GitHub issues. Enjoy!
