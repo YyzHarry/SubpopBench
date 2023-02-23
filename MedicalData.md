@@ -17,6 +17,8 @@ gsutil -m rsync -d -r gs://mimic-cxr-jpg-2.0.0.physionet.org MIMIC-CXR-JPG
 
 4. Run `python -m subpopbench.scripts.download mimic_cxr --data_path <data_path>`.
 
+5. (Optional) As the original jpgs have very high resolution, caching the images as downsampled copies might speed things up if you are training a lot of models. In this case, you should run `python -m subpopbench.scripts.cache_mimic_cxr --data_path <data_path>`.
+
 ## CheXpertNoFinding
 1. Download the [downsampled CheXpert dataset](http://download.cs.stanford.edu/deep/CheXpert-v1.0-small.zip) and extract it.
 
