@@ -24,7 +24,7 @@ def split(df, eval_weight=1, target_name='target'):
     for c, (_, fold_index) in enumerate(skf.split(idx_train, df.loc[idx_train, target_name])):
         df.loc[idx_train[fold_index], 'fold_id'] = str(c)
     df.loc[df.fold_id.isin(list(map(str, range(n_splits_train, n_splits_train + eval_weight, 1)))), 'fold_id'] = 'eval'
-    return df   
+    return df
 
 
 def bin_age(age):
@@ -42,18 +42,19 @@ def bin_age(age):
             return f'{i[0]}-{i[1]}'
 
 
-output_dir = Path('/data/healthy-ml/scratch/haoran/results/subpop_bench/data') # TODO: change
+# TODO: change to your own path
+output_dir = Path('/path/to/your/subpop_bench/output/dir')
 output_dir.mkdir(parents=True, exist_ok=True)
 
-random.seed(22891)
-
-# TODO: update database credentials
-sqluser = 'haoran'
+# TODO: update your own database credentials
+sqluser = 'username'
 dbname = 'mimic'
 schema_name = 'mimiciii'
 
+random.seed(22891)
+
 # Connect to local postgres version of mimic
-con = psycopg2.connect(dbname=dbname, user=sqluser, host = dbname, password = 'password')
+con = psycopg2.connect(dbname=dbname, user=sqluser, host=dbname, password='password')
 cur = con.cursor()
 cur.execute('SET search_path to ' + schema_name)
 
@@ -62,9 +63,7 @@ cur.execute('SET search_path to ' + schema_name)
 
 def replace(group):
     """
-      takes in a pandas group, and replaces the 
-      null value with the mean of the none null
-      values of the same group 
+    takes in a pandas group, and replaces the null value with the mean of the none null values of the same group
     """
     mask = group.isnull()
     group[mask] = group[~mask].mean()
@@ -74,7 +73,7 @@ def replace(group):
 # ======== get the icu details
 
 # this query extracts the following:
-#   Unique ids for the admission, patient and icu stay 
+#   Unique ids for the admission, patient and icu stay
 #   Patient gender 
 #   admission & discharge times 
 #   length of stay 
@@ -156,7 +155,8 @@ den.ethnicity.loc[~(den.ethnicity.str.contains('|'.join(['white', 'black'])))] =
 # den = pd.concat([den, pd.get_dummies(den['ethnicity'], prefix='eth')], 1)
 # den = pd.concat([den, pd.get_dummies(den['admission_type'], prefix='admType')], 1)
 
-den.drop(['diagnosis', 'hospstay_seq', 'los_icu', 'icustay_seq', 'admittime', 'dischtime', 'los_hospital', 'intime', 'outtime', 'first_careunit'], 1, inplace=True)
+den.drop(['diagnosis', 'hospstay_seq', 'los_icu', 'icustay_seq', 'admittime', 'dischtime', 'los_hospital', 'intime',
+          'outtime', 'first_careunit'], 1, inplace=True)
 
 den = den[(den['adult_icu'] == 1)].dropna()
 
@@ -193,7 +193,8 @@ output_df.loc[test_inds, 'fold_id'] = 'test'
 output_df = split(output_df, target_name='mort_hosp')
 
 n_tfidf_features = 10000
-tfidf = TfidfVectorizer(max_features=n_tfidf_features).fit(output_df.query('fold_id in ["0", "1", "2", "3", "4"]').chartext.values)
+tfidf = TfidfVectorizer(max_features=n_tfidf_features).fit(
+    output_df.query('fold_id in ["0", "1", "2", "3", "4"]').chartext.values)
 features = tfidf.transform(output_df.chartext.values)
 
 output_df = output_df.reset_index().rename(columns={'index': 'array_index'})
