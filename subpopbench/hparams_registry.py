@@ -36,7 +36,7 @@ def _hparams(algorithm, dataset, random_seed):
     # nonlinear classifiers disabled
     _hparam('nonlinear_classifier', False, lambda r: bool(r.choice([False, False])))
 
-    if algorithm in ['ReSamp', 'CRT']:
+    if algorithm in ['ReSample', 'CRT']:
         _hparam('group_balanced', True, lambda r: True)
     else:
         _hparam('group_balanced', False, lambda r: False)
