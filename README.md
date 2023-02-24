@@ -1,6 +1,6 @@
 # Subpopulation Shift Benchmark
 
-This repository contains the implementation for paper: [Change is Hard: A Closer Look at Subpopulation Shift](https://arxiv.org/abs/xxx) (Yang et al., 2023).
+This repository contains the implementation for paper: [Change is Hard: A Closer Look at Subpopulation Shift](https://arxiv.org/abs/2302.12254) (Yang et al., 2023).
 It is also a living PyTorch suite containing benchmark datasets and algorithms for subpopulation shift.
 
 
@@ -110,8 +110,8 @@ and the latter is specified by [model selection criteria](./subpopbench/learning
 We show a few important selection criteria:
 
 * `OracleWorstAcc`: Picks the best test-set worst-group accuracy (oracle)
-* `ValWorstAccAttributeYes`: Picks the best validation-set worst-group accuracy (attributes _known_ in validation set)
-* `ValWorstAccAttributeNo`: Picks the best validation-set worst-class accuracy (attributes _unknown_ in validation set; group degenerates to class)
+* `ValWorstAccAttributeYes`: Picks the best val-set worst-group accuracy (attributes _known_ in validation)
+* `ValWorstAccAttributeNo`: Picks the best val-set worst-class accuracy (attributes _unknown_ in validation; group degenerates to class)
 
 
 ## Getting Started
@@ -217,7 +217,7 @@ python -m subpopbench.scripts.collect_results --input_dir <...>
 
 
 ## Updates
-- __[02/2023]__ [arXiv version](https://arxiv.org/abs/xxx) posted. Code is released.
+- __[02/2023]__ [arXiv version](https://arxiv.org/abs/2302.12254) posted. Code is released.
 
 
 ## Acknowledgements
@@ -230,7 +230,7 @@ If you find this code or idea useful, please cite our work:
 @article{yang2023change,
   title={Change is Hard: A Closer Look at Subpopulation Shift},
   author={Yang, Yuzhe and Zhang, Haoran and Katabi, Dina and Ghassemi, Marzyeh},
-  journal={arXiv preprint arXiv:xxx},
+  journal={arXiv preprint arXiv:2302.12254},
   year={2023}
 }
 ```
