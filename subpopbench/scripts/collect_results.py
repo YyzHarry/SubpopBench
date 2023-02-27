@@ -113,7 +113,7 @@ def print_results_tables(records, selection_method, latex):
         col_labels = ["Algorithm"] + metrics
         header_text = (f"Dataset: {dataset}, "
                        f"model selection method: {selection_method.name}")
-        print_table(table, header_text, alg_names, list(col_labels), colwidth=20 if latex else 12, latex=latex)
+        print_table(table, header_text, alg_names, list(col_labels), colwidth=25 if latex else 12, latex=latex)
 
     # print a overall "worst-case" table
     if latex:
@@ -147,7 +147,7 @@ def print_results_tables(records, selection_method, latex):
 
     col_labels = ["Algorithm", *dataset_names, "Avg"]
     header_text = f"Worst-case accuracy, model selection method: {selection_method.name}"
-    print_table(table, header_text, alg_names, col_labels, colwidth=20 if latex else 12, latex=latex)
+    print_table(table, header_text, alg_names, col_labels, colwidth=25 if latex else 12, latex=latex)
 
 
 if __name__ == "__main__":
@@ -169,7 +169,7 @@ if __name__ == "__main__":
         print("\\usepackage{booktabs}")
         print("\\usepackage{adjustbox}")
         print("\\begin{document}")
-        print("\\section{Full MDLT results}")
+        print("\\section{Full SubpopBench results}")
         print("% Total records:", len(records))
     else:
         print(f"Total records: [{len(records)}]")
