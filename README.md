@@ -1,7 +1,15 @@
-# Subpopulation Shift Benchmark
+<p align="center">
+  <img src="assets/logo.png" align="center" width="80%">
+</p>
 
-This repository contains the implementation for paper: [Change is Hard: A Closer Look at Subpopulation Shift](https://arxiv.org/abs/2302.12254) (Yang et al., 2023).
-It is also a living PyTorch suite containing benchmark datasets and algorithms for subpopulation shift.
+--------------------------------------------------------------------------------
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/YyzHarry/SubpopBench/blob/main/LICENSE)
+
+## Overview
+
+**SubpopBench** is a benchmark of _subpopulation shift_.
+It is a living PyTorch suite containing benchmark datasets and algorithms for subpopulation shift, as introduced in [Change is Hard: A Closer Look at Subpopulation Shift](https://arxiv.org/abs/2302.12254) (Yang et al., ICML 2023).
 
 
 ## Contents
@@ -217,6 +225,7 @@ python -m subpopbench.scripts.collect_results --input_dir <...>
 
 
 ## Updates
+- __[05/2023]__ Paper accepted to [ICML 2023](https://icml.cc/Conferences/2023).
 - __[02/2023]__ [arXiv version](https://arxiv.org/abs/2302.12254) posted. Code is released.
 
 
@@ -227,10 +236,10 @@ This code is partly based on the open-source implementations from [DomainBed](ht
 ## Citation
 If you find this code or idea useful, please cite our work:
 ```bib
-@article{yang2023change,
+@inproceedings{yang2023change,
   title={Change is Hard: A Closer Look at Subpopulation Shift},
   author={Yang, Yuzhe and Zhang, Haoran and Katabi, Dina and Ghassemi, Marzyeh},
-  journal={arXiv preprint arXiv:2302.12254},
+  booktitle={International Conference on Machine Learning},
   year={2023}
 }
 ```
