@@ -1,10 +1,13 @@
 <p align="center">
-  <img src="assets/logo.png" align="center" width="80%">
+  <img src="assets/logo_2.png" align="center" width="80%">
 </p>
 
 --------------------------------------------------------------------------------
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/YyzHarry/SubpopBench/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-red.svg)](https://github.com/YyzHarry/SubpopBench/blob/main/LICENSE)
+![](https://img.shields.io/github/stars/YyzHarry/SubpopBench)
+![](https://img.shields.io/github/forks/YyzHarry/SubpopBench)
+![](https://visitor-badge.laobi.icu/badge?page_id=YyzHarry.SubpopBench&right_color=%23FFA500)
 
 ## Overview
 
