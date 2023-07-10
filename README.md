@@ -228,6 +228,7 @@ python -m subpopbench.scripts.collect_results --input_dir <...>
 
 
 ## Updates
+- __[07/2023]__ Check out the [Oral talk video](https://www.youtube.com/watch?v=WiSrCWAAUNI) (10 mins) for our ICML paper.
 - __[05/2023]__ Paper accepted to [ICML 2023](https://icml.cc/Conferences/2023).
 - __[02/2023]__ [arXiv version](https://arxiv.org/abs/2302.12254) posted. Code is released.
 
